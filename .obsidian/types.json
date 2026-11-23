@@ -1,0 +1,15 @@
+{
+  "types": {
+    "id": "text",
+    "status": "text",
+    "type": "text",
+    "priority": "text",
+    "assignee": "text",
+    "claimed_by": "text",
+    "repo": "text",
+    "labels": "multitext",
+    "related": "multitext",
+    "created": "date",
+    "updated": "date"
+  }
+}

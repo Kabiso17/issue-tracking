@@ -1,0 +1,7 @@
+# Obsidian 個人狀態（開啟的分頁、游標位置等）
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.trash/
+
+# Claude Code 個人設定
+.claude/settings.local.json

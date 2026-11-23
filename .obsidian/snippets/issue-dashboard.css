@@ -1,0 +1,24 @@
+/* 「Issue 看板」筆記專用（frontmatter: cssclasses: issue-dashboard） */
+
+/* 滿版：取消可讀行寬限制 */
+.issue-dashboard {
+  --file-line-width: 100%;
+}
+
+/* Bases 表格：欄位平均分配整個寬度
+   Obsidian 用 inline style 絕對定位每一格，這裡改回 flex 排列並平分。 */
+.issue-dashboard .bases-table-container {
+  width: 100% !important;
+}
+.issue-dashboard .bases-thead,
+.issue-dashboard .bases-tr {
+  display: flex;
+  width: 100%;
+}
+.issue-dashboard .bases-td {
+  position: relative !important;
+  inset-inline-start: auto !important;
+  width: auto !important;
+  flex: 1 1 0 !important;
+  min-width: 0;
+}

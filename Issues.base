@@ -1,0 +1,121 @@
+filters:
+  and:
+    - file.inFolder("Issues")
+    - file.ext == "md"
+formulas:
+  stage: if(status == "draft", "0 草稿", if(status == "open", "1 待處理", if(status == "in-progress", "2 進行中", if(status == "needs-info", "3 待補資訊", if(status == "review", "4 待驗收", if(status == "done", "5 完成", "6 不處理"))))))
+properties:
+  file.name:
+    displayName: Issue
+  note.id:
+    displayName: ID
+  note.status:
+    displayName: 狀態
+  formula.stage:
+    displayName: 階段
+  note.type:
+    displayName: 類型
+  note.priority:
+    displayName: 優先
+  note.assignee:
+    displayName: 指派給
+  note.claimed_by:
+    displayName: 處理中
+  note.repo:
+    displayName: Repo
+  note.labels:
+    displayName: 標籤
+  note.created:
+    displayName: 建立
+  note.updated:
+    displayName: 更新
+views:
+  - type: table
+    name: 看板
+    filters:
+      and:
+        - status != "done"
+        - status != "wontfix"
+    groupBy:
+      property: formula.stage
+      direction: ASC
+    order:
+      - file.name
+      - priority
+      - type
+      - assignee
+      - claimed_by
+      - repo
+      - updated
+    sort:
+      - property: priority
+        direction: ASC
+      - property: updated
+        direction: DESC
+    columnSize:
+      note.repo: 91
+  - type: table
+    name: 等我回覆
+    filters:
+      or:
+        - status == "needs-info"
+        - status == "review"
+    order:
+      - file.name
+      - status
+      - priority
+      - claimed_by
+      - updated
+    sort:
+      - property: updated
+        direction: DESC
+  - type: table
+    name: Agent 佇列
+    filters:
+      and:
+        - status == "open"
+        - assignee != "human"
+    order:
+      - file.name
+      - priority
+      - assignee
+      - type
+      - repo
+      - created
+    sort:
+      - property: priority
+        direction: ASC
+      - property: created
+        direction: ASC
+  - type: table
+    name: 全部
+    order:
+      - file.name
+      - id
+      - formula.stage
+      - priority
+      - type
+      - assignee
+      - claimed_by
+      - repo
+      - labels
+      - created
+      - updated
+    sort:
+      - property: updated
+        direction: DESC
+  - type: table
+    name: 已結案
+    filters:
+      or:
+        - status == "done"
+        - status == "wontfix"
+    order:
+      - file.name
+      - status
+      - type
+      - claimed_by
+      - updated
+    sort:
+      - property: updated
+        direction: DESC
